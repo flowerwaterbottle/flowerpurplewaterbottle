@@ -21,7 +21,7 @@ const sampleSubmissions = [
     medium: 'Procreate',
     description: 'A neon-heavy future city where vines climb the skyscrapers.',
     label: 'Featured',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
+    image: '',
     month: 0,
     year: 2026,
     votes: 1260
@@ -32,7 +32,7 @@ const sampleSubmissions = [
     medium: 'Watercolor',
     description: 'Mythical spirit guiding travelers across a foggy bend.',
     label: 'New',
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
+    image: '',
     month: 0,
     year: 2026,
     votes: 986
@@ -43,7 +43,7 @@ const sampleSubmissions = [
     medium: 'Vector',
     description: 'Satellite blossoms that transmit music to the stars.',
     label: 'Community pick',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+    image: '',
     month: 0,
     year: 2026,
     votes: 1184
@@ -54,7 +54,7 @@ const sampleSubmissions = [
     medium: 'Ink & wash',
     description: 'A fox spirit pacing along floating lanterns.',
     label: 'Vote magnet',
-    image: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=80',
+    image: '',
     month: 0,
     year: 2026,
     votes: 1122
@@ -206,6 +206,13 @@ function handleSubmissionForm() {
   if (!form) return;
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    // Check if image was uploaded (from upload.js)
+    if (!window.uploadedImageUrl) {
+      alert('Please upload an image first');
+      return;
+    }
+    
     const formData = new FormData(form);
     const now = new Date();
     const entry = {
@@ -213,7 +220,7 @@ function handleSubmissionForm() {
       artist: formData.get('artist'),
       medium: formData.get('medium'),
       description: formData.get('description'),
-      image: formData.get('image'),
+      image: window.uploadedImageUrl,
       label: 'New',
       month: now.getMonth(),
       year: now.getFullYear(),

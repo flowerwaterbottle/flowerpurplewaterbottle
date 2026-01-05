@@ -49,8 +49,13 @@
           <textarea name="description" placeholder="Tell us about your piece and process" required></textarea>
         </label>
         <label>
-          Image URL
-          <input type="url" name="image" placeholder="Link to your artwork (e.g., imgur, cloudinary)" required />
+          Artwork image
+          <div class="upload-area">
+            <div id="upload-preview" class="art-thumb placeholder">Click to upload image</div>
+            <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+            <button type="button" id="upload-trigger" class="upload-btn">Choose image</button>
+            <p id="upload-status" style="margin: 8px 0 0; font-size: 13px; color: var(--muted);">Max 4MB • JPG, PNG, WebP</p>
+          </div>
         </label>
         <button type="submit">Submit to gallery</button>
       </form>
@@ -64,6 +69,7 @@
     Submissions are saved locally until you connect a backend.
   </footer>
 
+  <script src="upload.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
