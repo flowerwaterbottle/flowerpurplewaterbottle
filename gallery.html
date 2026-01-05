@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Open Canvas League</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <div class="badge">Open Canvas League</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a class="active" href="gallery.html">Gallery</a>
+        <a href="contest.html">Scores & Schedule</a>
+      </nav>
+      <a class="cta" href="submit.html">Post your artwork</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-heading">
+      <h2>Gallery</h2>
+      <span class="tag">Current theme: <span data-current-theme></span></span>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </main>
+
+  <footer class="footer">
+    All submissions are filtered by the current month's theme.
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

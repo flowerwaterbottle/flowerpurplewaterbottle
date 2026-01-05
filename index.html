@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Canvas League — Monthly Art Challenges</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <div class="badge">Open Canvas League</div>
+      </div>
+      <nav class="nav-links">
+        <a class="active" href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contest.html">Scores & Schedule</a>
+      </nav>
+      <a class="cta" href="submit.html">Post your artwork</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="tag">Monthly drawing competition</p>
+        <h1>Submit boldly. Vote fairly. Celebrate monthly winners.</h1>
+        <p>Each month has a fresh theme. Post your artwork, share your process, and rally votes during the final-week sprint. Five winners are showcased when the month resets.</p>
+        <div class="actions">
+          <a class="cta" href="submit.html">Enter this month's theme</a>
+          <a class="tag" href="contest.html">See schedule & scores</a>
+        </div>
+        <div class="stat-block">
+          <div class="stat">
+            <h3 id="stat-submissions">0</h3>
+            <span>Active submissions</span>
+          </div>
+          <div class="stat">
+            <h3 id="stat-time">--:--:--</h3>
+            <span>Time left to submit</span>
+          </div>
+          <div class="stat">
+            <h3 id="stat-theme">Current theme</h3>
+            <span data-current-theme></span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Monthly spotlight</h3>
+        <p>Theme: <strong data-current-theme></strong></p>
+        <p>Submit by the final day of the month. Voting opens during the last 7 days.</p>
+        <div class="countdown" data-countdown>
+          <div>Submissions close in <span data-countdown-timer>loading...</span></div>
+        </div>
+        <div class="timeline" style="margin-top: 16px;">
+          <div class="step">
+            <strong>Week 1-3</strong>
+            <p>Post your artwork and iterate based on feedback.</p>
+          </div>
+          <div class="step">
+            <strong>Week 4</strong>
+            <p>Voting week — share your entry and gather votes.</p>
+          </div>
+          <div class="step">
+            <strong>Month reset</strong>
+            <p>Top 5 winners are featured and a new theme goes live.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <h2>Upcoming monthly themes</h2>
+      <span class="tag">Plan ahead and start sketching</span>
+    </div>
+    <div class="card-grid" id="theme-grid"></div>
+
+    <div class="section-heading">
+      <h2>How to participate</h2>
+      <span class="tag">Everything you need to know</span>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Create</h3>
+        <p>Make art that fits the monthly theme. Any medium is welcome—digital or traditional.</p>
+      </div>
+      <div class="card">
+        <h3>Post</h3>
+        <p>Upload your artwork in the gallery and add a short blurb about your process.</p>
+      </div>
+      <div class="card">
+        <h3>Vote</h3>
+        <p>During the final week, invite friends to vote. The top five are showcased.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Built for the community. New themes launch on day one of each month.
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

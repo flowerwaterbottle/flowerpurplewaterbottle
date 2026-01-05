@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scores & Schedule — Open Canvas League</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <div class="badge">Open Canvas League</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a class="active" href="contest.html">Scores & Schedule</a>
+      </nav>
+      <a class="cta" href="submit.html">Submit artwork</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-heading">
+      <h2>Contest tracker</h2>
+      <span class="tag">Live countdown & top entries</span>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Submission window</h3>
+        <p>Submissions close at the end of the month. Voting opens during the last week.</p>
+        <div class="countdown" data-countdown>
+          <div>Time left to submit: <span data-countdown-timer>loading...</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Voting week</h3>
+        <p>Voting for this month starts in the final 7 days.</p>
+        <div class="countdown">
+          <div>Voting opens in <span data-voting-countdown>calculating...</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Monthly theme</h3>
+        <p>Theme: <strong data-current-theme></strong></p>
+        <p class="muted">Next month: <strong data-next-theme></strong></p>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <h2>Top 5 leaderboard</h2>
+      <span class="tag">Current month only — live rankings</span>
+    </div>
+    <div id="leaderboard"></div>
+
+    <div class="section-heading">
+      <h2>Upcoming milestones</h2>
+      <span class="tag">Stay on track</span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </main>
+
+  <footer class="footer">
+    Winners are announced on day one of the next month.
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

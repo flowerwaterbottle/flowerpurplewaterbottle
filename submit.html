@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Artwork — Open Canvas League</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <div class="badge">Open Canvas League</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contest.html">Scores & Schedule</a>
+      </nav>
+      <a class="cta" href="gallery.html">View gallery</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-heading">
+      <h2>Submit your artwork</h2>
+      <span class="tag">Theme: <span data-current-theme></span></span>
+    </div>
+
+    <div class="form-card">
+      <p style="margin: 0 0 16px; color: var(--muted);">
+        Fill out all fields below to post your artwork to the gallery. Submissions are locked to the current month's theme and will appear in the voting pool during the final week.
+      </p>
+      <form id="submission-form">
+        <label>
+          Artist name
+          <input type="text" name="artist" placeholder="Your name" required />
+        </label>
+        <label>
+          Title
+          <input type="text" name="title" placeholder="What should we call this?" required />
+        </label>
+        <label>
+          Medium
+          <input type="text" name="medium" placeholder="e.g., Procreate, watercolor, ink" required />
+        </label>
+        <label>
+          Description
+          <textarea name="description" placeholder="Tell us about your piece and process" required></textarea>
+        </label>
+        <label>
+          Image URL
+          <input type="url" name="image" placeholder="Link to your artwork (e.g., imgur, cloudinary)" required />
+        </label>
+        <button type="submit">Submit to gallery</button>
+      </form>
+      <p style="margin: 16px 0 0; font-size: 13px; color: var(--muted);">
+        After submission, your artwork will appear in the <a href="gallery.html" style="color: var(--accent);">gallery</a> and remain visible for the entire month.
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Submissions are saved locally until you connect a backend.
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
