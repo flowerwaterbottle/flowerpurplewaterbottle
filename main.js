@@ -61,6 +61,93 @@ const sampleSubmissions = [
   }
 ];
 
+const monthlyWinners = [
+  {
+    month: 'January',
+    theme: 'Futuristic Cityscapes',
+    image: 'https://31od6yp9h9.ufs.sh/f/LiK7sT5GpHOCcejd2IVmCFbwdh0DpX3VzJRQfP9UTjW7qv1E',
+    artist: 'monkay',
+    votes: 76
+  },
+  {
+    month: 'February',
+    theme: 'Mythical Companions',
+    image: 'https://31od6yp9h9.ufs.sh/f/LiK7sT5GpHOCJsnSJQ8Z3sSYCagT2iQERVv1NlzbDH8PUjfM',
+    artist: 'shnop',
+    votes: 82
+  },
+  {
+    month: 'March',
+    theme: 'Dreamlike Forests',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'April',
+    theme: 'Mechanical Wonders',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'May',
+    theme: 'Underwater Worlds',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'June',
+    theme: 'Celestial Journeys',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'July',
+    theme: 'Everyday Heroes',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'August',
+    theme: 'Color Riot',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'September',
+    theme: 'Architectural Echoes',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'October',
+    theme: 'Night Parade',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'November',
+    theme: 'Nature',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  },
+  {
+    month: 'December',
+    theme: 'Cozy Constellations',
+    image: '',
+    artist: 'TBD',
+    votes: 0
+  }
+];
+
 const STORAGE_KEY = 'ocl-submissions';
 
 // Leaderboard is now dynamically generated from submissions
@@ -87,12 +174,53 @@ function loadSubmissions() {
   }
 }
 
+const THEME_KEY = 'ocl-theme';
+
 function persistSubmissions() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.submissions));
   } catch (err) {
     console.error('Failed to persist submissions', err);
   }
+}
+
+function getStoredTheme() {
+  return localStorage.getItem(THEME_KEY);
+}
+
+function setTheme(mode) {
+  document.body.classList.toggle('light', mode === 'light');
+  document.body.classList.toggle('dark', mode === 'dark');
+  localStorage.setItem(THEME_KEY, mode);
+  updateThemeToggleButton(mode);
+}
+
+function updateThemeToggleButton(mode) {
+  const button = document.getElementById('theme-toggle');
+  if (!button) return;
+  if (mode === 'light') {
+    button.textContent = '🌙';
+    button.title = 'Switch to dark mode';
+  } else {
+    button.textContent = '☀️';
+    button.title = 'Switch to light mode';
+  }
+}
+
+function toggleTheme() {
+  const current = document.body.classList.contains('light') ? 'light' : 'dark';
+  setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+function initThemeToggle() {
+  const stored = getStoredTheme();
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const mode = stored || (prefersDark ? 'dark' : 'light');
+  setTheme(mode);
+
+  const button = document.getElementById('theme-toggle');
+  if (!button) return;
+  button.addEventListener('click', toggleTheme);
 }
 
 function getCurrentTheme(date = new Date()) {
@@ -149,10 +277,85 @@ function renderThemes() {
   grid.innerHTML = '';
   monthlyThemes.forEach((item, idx) => {
     const card = document.createElement('div');
-    card.className = 'card';
-    const badge = idx === new Date().getMonth() ? '<span class="tag">Now</span>' : '';
-    card.innerHTML = `${badge}<h3>${item.month}</h3><p>${item.theme}</p>`;
+    card.className = `card theme-card theme-${idx}`;
+    const badge = idx === new Date().getMonth() ? '<span class="now-badge">Now</span>' : '';
+    card.innerHTML = `
+      ${badge}
+      <div class="theme-card-content">
+        <h3>${item.month}</h3>
+        <p>${item.theme}</p>
+      </div>
+    `;
     grid.appendChild(card);
+  });
+}
+
+function renderWinners() {
+  const grid = document.getElementById('winner-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  monthlyWinners.forEach((winner) => {
+    const card = document.createElement('div');
+    card.className = 'winner-card';
+
+    const image = document.createElement('img');
+    image.className = 'winner-thumb';
+    image.src = winner.image || 'https://via.placeholder.com/900x600?text=Winner+coming+soon';
+    image.alt = `${winner.month} winning artwork by ${winner.artist}`;
+    image.addEventListener('click', () => openWinnerModal(winner));
+
+    const details = document.createElement('div');
+    details.className = 'winner-details';
+    details.innerHTML = `
+      <h3>${winner.month}</h3>
+      <p class="meta">Theme: <strong>${winner.theme}</strong></p>
+      <p class="meta">Winner: <strong>${winner.artist}</strong></p>
+      <p class="meta">Votes: <strong>${winner.votes}</strong></p>
+    `;
+
+    card.appendChild(image);
+    card.appendChild(details);
+    grid.appendChild(card);
+  });
+}
+
+function openWinnerModal(winner) {
+  const modal = document.getElementById('image-modal');
+  const modalImage = document.getElementById('modal-image');
+  const modalMonth = document.getElementById('modal-month');
+  const modalTheme = document.getElementById('modal-theme');
+  const modalArtist = document.getElementById('modal-artist');
+  const modalVotes = document.getElementById('modal-votes');
+
+  if (!modal || !modalImage) return;
+  modalImage.src = winner.image || 'https://via.placeholder.com/1200x800?text=Winner+coming+soon';
+  modalImage.alt = `${winner.month} winning artwork by ${winner.artist}`;
+  modalMonth.textContent = `${winner.month} — ${winner.theme}`;
+  modalTheme.textContent = `Theme: ${winner.theme}`;
+  modalArtist.textContent = `Winner: ${winner.artist}`;
+  modalVotes.textContent = `Votes: ${winner.votes}`;
+  modal.classList.add('open');
+}
+
+function closeWinnerModal() {
+  const modal = document.getElementById('image-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+}
+
+function attachModalEvents() {
+  const modal = document.getElementById('image-modal');
+  const closeButton = document.getElementById('modal-close');
+  const backdrop = document.getElementById('image-modal-backdrop');
+
+  if (!modal) return;
+
+  closeButton?.addEventListener('click', closeWinnerModal);
+  backdrop?.addEventListener('click', closeWinnerModal);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeWinnerModal();
+    }
   });
 }
 
@@ -326,12 +529,15 @@ function updateSubmissionCount() {
 function init() {
   state.submissions = loadSubmissions();
   renderThemes();
+  renderWinners();
   renderGallery();
   renderLeaderboard();
   renderTimeline();
   renderThemeLabels();
   updateSubmissionCount();
   handleSubmissionForm();
+  initThemeToggle();
+  attachModalEvents();
   updateCountdowns();
   setInterval(updateCountdowns, 1000);
 }
